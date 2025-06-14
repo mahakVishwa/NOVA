@@ -1,3 +1,0 @@
-<?php
-$API_KEY = "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";
-?>
