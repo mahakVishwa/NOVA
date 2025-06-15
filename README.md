@@ -4,7 +4,6 @@ Meet NOVA — a fully voice-enabled, cinematic AI assistant built with pure HTML
 
 Inspired by futuristic systems like JARVIS, NOVA speaks, types, animates, and even shuts down with personality and flair - creating a unique sci-fi experience in the browser.
 
-🌐 Live Demo: https://nova-terminal.infinityfreeapp.com/
 
 ---
 🧩 Features
