@@ -1,36 +1,62 @@
-NOVA - Sci-Fi AI Terminal Assistant 🧠🛰️
+🚀 NOVA — Sci-Fi AI Terminal Assistant
 
-Meet NOVA — a fully voice-enabled, cinematic AI assistant built with pure HTML, CSS, JavaScript and a secured PHP backend.
+NOVA is a cinematic, voice-enabled AI assistant that lives inside a futuristic terminal interface.
+Inspired by systems like JARVIS, NOVA doesn’t just respond - it performs.
 
-Inspired by futuristic systems like JARVIS, NOVA speaks, types, animates, and even shuts down with personality and flair - creating a unique sci-fi experience in the browser.
+Built with HTML, CSS, JavaScript, and a secure PHP backend, NOVA blends AI, voice synthesis and UI storytelling into an immersive sci-fi experience.
 
+🔗 Live Demo: https://nova-terminal-c3tx.onrender.com/
 
----
-🧩 Features
+✨ Features
 
-- 🟢 Sci-fi styled terminal UI
-- 💬 Real-time speech + typing sync
-- 🔊 Animated waveform that reacts to voice
-- 🌗 Cinematic exit & reactivation sequences
-- 📱 Fully responsive for both desktop and mobile
-- 🔐 Backend PHP is secured and hidden
+🟢 Futuristic sci-fi terminal UI
 
----
-🔧 Built With
+💬 Real-time typing + AI response flow
 
-- HTML5 / CSS3
-- JavaScript
-- PHP (used to securely fetch AI responses)
+🔊 Voice synthesis with animated waveform
 
----
-🛡️ Security Note
+🌗 Cinematic system shutdown & reactivation
 
-The backend files (`ask_nova.php`, `config.php`) are excluded from this repository to protect the API endpoint and prompt logic.
+📱 Fully responsive (desktop + mobile)
 
----
+🔐 Secure backend with server-side AI calls
+
+🧠 Tech Stack
+
+Frontend: HTML5, CSS3, JavaScript
+
+Backend: PHP
+
+AI Model: LLaMA-3 via Groq API
+
+Deployment: Render (Docker + env variables)
+
+🔒 Security & Deployment
+
+API keys are not hardcoded anywhere in the codebase
+
+Sensitive credentials are securely stored using Render Environment Variables
+
+All AI requests are handled server-side via PHP to prevent client exposure
+
+This ensures safe public deployment while keeping the project open-source.
+
+🧪 What This Project Demonstrates
+
+Full-stack integration (frontend ↔ backend ↔ AI API)
+
+Secure API handling & deployment practices
+
+Voice + UI synchronization
+
+Creative UX with strong personality design
+
+Real-world debugging and hosting experience
+
 👩‍💻 Developer
 
-Developed by [Mahak Vishwakarma](https://github.com/mahakVishwa)
-As part of a sci-fi creative side project to push frontend + AI storytelling boundaries.
+Built by Mahak Vishwakarma
 
----
+As a creative side project exploring the intersection of AI, frontend engineering, and cinematic storytelling.
+
+⭐ If you enjoyed NOVA, feel free to explore or reach out!
