@@ -21,7 +21,7 @@
 
 <p>
   Built with pure <b>HTML, CSS, JavaScript</b> and a secure <b>PHP backend</b>, NOVA blends
-  AI responses, voice synthesis, and cinematic UI interactions into an immersive browser experience.
+  AI responses, voice synthesis and cinematic UI interactions into an immersive browser experience.
 </p>
 
 <hr />
@@ -82,11 +82,11 @@
   Built by <b><a href="https://github.com/mahakVishwa" target="_blank">Mahak Vishwakarma</a></b>
   <br />
   As a creative side project exploring the intersection of
-  <b>AI, frontend engineering, and cinematic storytelling</b>.
+  <b>AI, frontend engineering and cinematic storytelling</b>.
 </p>
 
 <hr />
 
 <p align="center">
-  ⭐ If you enjoyed NOVA, feel free to explore, fork, or reach out!
+  ⭐ If you enjoyed NOVA, feel free to explore or reach out!
 </p>
