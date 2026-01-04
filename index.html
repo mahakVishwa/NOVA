@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOVA-Dashboard</title>
+    <link rel="stylesheet" href="nova.css">
+</head>
+
+<body>
+    <canvas id="matrix"></canvas>
+
+    <div class="dashboard">
+        <div class="panel nav-panel">
+            <h2>NAVIGATION</h2>
+            <p>Destination: Base Alpha II</p>
+            <p>ETA: 2d 14h 32m</p>
+        </div>
+    
+    <div class = "terminal">
+    <div id="text"></div>
+    <div id="input-line">
+        <span id="prompt"></span>&nbsp;
+        <input type = "text" id="userInput" placeholder="..." autofocus autocomplete="off" />
+        <div id="waveform" class="hidden">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+    </div>
+    </div>
+
+    <div class="panel system-panel">
+        <h2>SYSTEM STATUS</h2>
+        <p id="cpu"></p>
+        <p id="mem"></p>
+        <p id="oxy"></p>
+    </div>
+    </div>
+
+    <div id="warning"></div>
+
+<script>
+    //For checking whether the user's device is mobile or laptop
+    const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
+    let voicesReady = false;
+
+    //If device is mobile then we use click to load voices otherwise not
+    if (isMobile) {
+    window.addEventListener("click", async () => {
+        if (!voicesReady) {
+            await loadVoices();
+            voicesReady = true;
+            console.log("Voices unlocked via user tap.");
+        }
+    }, { once: true });
+    } else {
+        loadVoices().then(() => {
+            voicesReady = true;
+            console.log("Voices preloaded on desktop.");
+    });
+    }
+
+    const waitForVoices = () => new Promise(resolve => {
+    const check = () => voicesReady ? resolve() : setTimeout(check, 100); 
+    check();
+    });
+
+    (async () => {
+        await waitForVoices(); //Waits for voices to load properly before anything gets typed on the screen
+        sender(text_arr);
+    })();
+
+
+
+// Making the dashboard look cooler and non-repetitive   
+    function randomPercentGenerator(){
+            return Math.round(Math.random()*100);
+        } 
+    document.querySelector('#cpu').innerText = `CPU: ${randomPercentGenerator()}%`;
+    document.querySelector('#mem').innerText = `Memory: ${randomPercentGenerator()}%`;
+
+    const oxygen = randomPercentGenerator();
+    document.querySelector('#oxy').innerText = `Oxygen: ${oxygen}%`;
+    if(oxygen < 30){
+        document.querySelector('#warning').innerText = `WARNING: Oxygen levels critically low!`; //Special effects for more drama on screen
+        document.querySelector('#warning').classList.add("warning-box");
+    } 
+
+    //The OG matrix bg
+    const canvas = document.getElementById("matrix")
+    const ctx = canvas.getContext("2d");
+
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+
+    const binary = "01";
+    const fontSize = 14;
+    const columns = canvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(0)
+    .map(()=>Math.floor(Math.random()* canvas.height / fontSize)); //random starting points for each column
+
+    function drawMatrix(){ //determines where to display each character
+        ctx.fillStyle = "rgba(0,0,0,0.05)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = "rgba(0,255, 255, 0.3)"; //some styling
+        ctx.font = fontSize + "px monospace";
+
+        for(let i = 0; i<drops.length; i++){
+            const char = binary.charAt(Math.floor(Math.random()*binary.length));
+            ctx.fillText(char, i*fontSize, drops[i]*fontSize); //displaying the characters on the canvas
+
+            if(drops[i]*fontSize > canvas.height || Math.random() > 0.975){ //bg doesnt overflow and randomization of each column
+                drops[i] = 0;
+            }
+
+            drops[i]++;
+        }
+    }
+
+    setInterval(drawMatrix, 33);
+
+    //The typing starts here....
+    let text_arr = [
+        'Welcome Commander!',
+        'Awaiting your instructions...',
+    ]
+
+    function loadVoices(){ //to ensure the voice we want is loaded and ready to speak
+        return new Promise(resolve=> {
+            let voices = speechSynthesis.getVoices();
+            if(voices.length){
+                resolve(voices);
+            } else{
+                speechSynthesis.onvoiceschanged = () => {
+                    resolve(speechSynthesis.getVoices());
+                };
+            }
+        });
+    }
+
+    //Calling our ai model using api key
+    async function getAIReply (userMessage){
+        document.querySelector('#input-line').style.display = "none";
+        const response = await fetch("ask_nova.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-Title": "NOVA-Terminal"
+            },
+            body: JSON.stringify({ prompt: userMessage })
+        });
+
+        if(!response.ok){
+            throw new Error("Network response was not ok");
+        }
+        const text = await response.text();
+
+        const data = JSON.parse(text);
+        console.log("API Response:", data);
+
+    try{
+        return data.choices[0].message.content.trim();
+    } catch (err) { //fallback is necessary
+        console.error("Error reading response:", err);
+        return "Sorry, I couldn't process that right now.";
+    }
+}
+    
+    //Finally NOVA speaks... *DRUMROLLS*
+    async function speak(text){
+        const bars = document.getElementById("waveform");
+        bars.classList.remove("hidden");
+
+        await new Promise(resolve => requestAnimationFrame(()=> setTimeout(resolve, 100))); //delay so the animation can play
+
+        const voices = await loadVoices();
+    
+        if(!voices.length || !speechSynthesis){
+            console.warn("Speech not supported or voices not available."); //Skips speaking if voice not available
+            bars.classList.add("hidden");
+            return;
+        }
+
+        const utterance = new SpeechSynthesisUtterance(text);
+
+        utterance.voice = voices.find(voice => voice.name.includes("Zira")||voice.name.includes("Google UK English Female")||voice.name.includes("Samantha")||voice.name.includes("Google US English"|| voice.default));
+        console.log(speechSynthesis.getVoices());
+            
+        utterance.rate = 1.2;
+        utterance.pitch = isMobile? 1.1 : 1.8; //for perfect pitch on every device
+        utterance.volume = 1;
+
+       
+        utterance.onend = () => {
+            console.log("Speech ended");
+            bars.classList.add("hidden"); //ends animation when nova stops speaking
+        };
+
+        speechSynthesis.cancel();
+        speechSynthesis.speak(utterance);       
+    };
+    
+    
+    
+    //Here we type everything out on the screen
+    const write_text = async (message) => {
+        const textToSpeak = message.replace("NOVA", "");
+        await speak(textToSpeak); //and call speak
+        for(let char of message){
+            document.querySelector('#text').innerHTML += char;
+            await new Promise (resolve => setTimeout(resolve, Math.random()*80))
+        }
+        document.querySelector('#text').innerHTML += "<br>"
+    };
+
+    //for typing each element of our text array properly
+    const sender = async (arr) => {    
+      for(let i=0; i<arr.length; i++){
+            await write_text(arr[i]);
+            await new Promise(resolve => setTimeout(resolve, Math.random()*2000))
+      }
+
+      document.querySelector('#text').innerHTML += "<br>"
+      document.querySelector('#text').classList.add("hideCursor"); //so there is only a single cursor on screen when you give input
+      document.querySelector('#input-line').style.display = "flex"; //this one
+      document.querySelector('#userInput').focus(); //so that you dont have to click everytime to enter input
+    }  
+
+    //Here we take+display input from the user i.e The COMMANDER of NOVA...now that sounds cool
+    const userInput = document.querySelector('#userInput')
+    userInput.addEventListener("keydown", async (e) => {
+        if(e.key === "Enter" && userInput.value.trim() !== ""){
+            const input = userInput.value.trim();
+            document.querySelector('#text').innerHTML += `> ${input} <br>`; //displays input
+            userInput.value = ""; //clears input field for next question
+
+            await new Promise(resolve => setTimeout(resolve, 50));
+
+        document.querySelector('#input-line').style.display = "none";   //removes any cursor after input is taken
+        if(input.includes("exit")){
+            await speak(`Dormancy code initiated. Systems shutting down... Goodbye Commander.`);
+            setTimeout(()=> {document.body.classList.add("terminal-off");}, 5500) //Extra effects
+        } else{  
+            const AIReply = await getAIReply(input); 
+            await write_text(`NOVA: ${AIReply}`); //NOVA replies
+        }
+        document.querySelector('#input-line').style.display = "flex"; //adds the input cursor again
+        }
+    });
+    
+    //So that Nova doesnt speak when we close or switch tabs
+    document.addEventListener("visibilitychange", async()=>{
+        if(document.hidden){
+            speechSynthesis.cancel();
+        } else {
+            await speak("Reactivating neural link.") //reboot effect when we open the tab again
+            setTimeout(()=> {document.body.classList.remove("terminal-off");}, 2000)
+        }
+    });
+
+</script>
+</body>
+</html>
