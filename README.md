@@ -1,62 +1,92 @@
-🚀 NOVA — Sci-Fi AI Terminal Assistant
+<h1 align="center">🚀 NOVA — Sci-Fi AI Terminal Assistant</h1>
 
-NOVA is a cinematic, voice-enabled AI assistant that lives inside a futuristic terminal interface.
-Inspired by systems like JARVIS, NOVA doesn’t just respond - it performs.
+<p align="center">
+  A cinematic, voice-enabled AI assistant inspired by futuristic systems like <b>JARVIS</b>.
+</p>
 
-Built with HTML, CSS, JavaScript, and a secure PHP backend, NOVA blends AI, voice synthesis and UI storytelling into an immersive sci-fi experience.
+<p align="center">
+  <a href="https://nova-terminal-c3tx.onrender.com/" target="_blank">
+    🔗 Live Demo
+  </a>
+</p>
 
-🔗 Live Demo: https://nova-terminal-c3tx.onrender.com/
+<hr />
 
-✨ Features
+<h2>🧠 About NOVA</h2>
 
-🟢 Futuristic sci-fi terminal UI
+<p>
+  <b>NOVA</b> is a sci-fi themed AI assistant that lives inside a futuristic terminal interface.
+  It doesn’t just respond — it <i>performs</i>.
+</p>
 
-💬 Real-time typing + AI response flow
+<p>
+  Built with pure <b>HTML, CSS, JavaScript</b> and a secure <b>PHP backend</b>, NOVA blends
+  AI responses, voice synthesis, and cinematic UI interactions into an immersive browser experience.
+</p>
 
-🔊 Voice synthesis with animated waveform
+<hr />
 
-🌗 Cinematic system shutdown & reactivation
+<h2>✨ Features</h2>
 
-📱 Fully responsive (desktop + mobile)
+<ul>
+  <li>🟢 Futuristic sci-fi terminal UI</li>
+  <li>💬 Real-time typing + AI response flow</li>
+  <li>🔊 Voice synthesis with animated waveform</li>
+  <li>🌗 Cinematic shutdown & reactivation sequences</li>
+  <li>📱 Fully responsive (desktop & mobile)</li>
+  <li>🔐 Secure server-side AI requests</li>
+</ul>
 
-🔐 Secure backend with server-side AI calls
+<hr />
 
-🧠 Tech Stack
+<h2>🧰 Tech Stack</h2>
 
-Frontend: HTML5, CSS3, JavaScript
+<ul>
+  <li><b>Frontend:</b> HTML5, CSS3, JavaScript</li>
+  <li><b>Backend:</b> PHP</li>
+  <li><b>AI Model:</b> LLaMA-3 via Groq API</li>
+  <li><b>Deployment:</b> Render (Docker + Environment Variables)</li>
+</ul>
 
-Backend: PHP
+<hr />
 
-AI Model: LLaMA-3 via Groq API
+<h2>🔒 Security & Deployment</h2>
 
-Deployment: Render (Docker + env variables)
+<ul>
+  <li>API keys are <b>never hardcoded</b> in the repository</li>
+  <li>All sensitive credentials are stored using <b>Render Environment Variables</b></li>
+  <li>AI requests are handled <b>server-side</b> to prevent client exposure</li>
+</ul>
 
-🔒 Security & Deployment
+<p>
+  This allows the project to remain open-source while being safely deployed online.
+</p>
 
-API keys are not hardcoded anywhere in the codebase
+<hr />
 
-Sensitive credentials are securely stored using Render Environment Variables
+<h2>🧪 What This Project Demonstrates</h2>
 
-All AI requests are handled server-side via PHP to prevent client exposure
+<ul>
+  <li>Frontend ↔ Backend ↔ AI API integration</li>
+  <li>Secure API handling & deployment practices</li>
+  <li>Voice synthesis synced with UI animations</li>
+  <li>Creative UX with personality-driven design</li>
+  <li>Real-world debugging & hosting experience</li>
+</ul>
 
-This ensures safe public deployment while keeping the project open-source.
+<hr />
 
-🧪 What This Project Demonstrates
+<h2>👩‍💻 Developer</h2>
 
-Full-stack integration (frontend ↔ backend ↔ AI API)
+<p>
+  Built by <b><a href="https://github.com/mahakVishwa" target="_blank">Mahak Vishwakarma</a></b>
+  <br />
+  As a creative side project exploring the intersection of
+  <b>AI, frontend engineering, and cinematic storytelling</b>.
+</p>
 
-Secure API handling & deployment practices
+<hr />
 
-Voice + UI synchronization
-
-Creative UX with strong personality design
-
-Real-world debugging and hosting experience
-
-👩‍💻 Developer
-
-Built by Mahak Vishwakarma
-
-As a creative side project exploring the intersection of AI, frontend engineering, and cinematic storytelling.
-
-⭐ If you enjoyed NOVA, feel free to explore or reach out!
+<p align="center">
+  ⭐ If you enjoyed NOVA, feel free to explore, fork, or reach out!
+</p>
